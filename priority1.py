@@ -50,37 +50,6 @@ class PriorityPreemptive:
                 p.tat = p.ct - p.at
                 p.wt = p.tat - p.bt
 
-    
-    # def schedule(self):
-    #     time =0
-    #     completed= 0
-    #     n = len(self.processes)
-    #     while completed <n:
-    #         for i in range(n):
-    #             idx = -1
-    #             best_pr = float('inf')
-    #             p = self.processes[i]
-    #             if p.at<= time and p.rt >0:
-    #                 if (p.pr<best_pr ) or (p.pr == best_pr and p.at< self.processes[idx].at):
-    #                     best_pr = p.pr
-    #                     idx = i
-                
-    #         if idx==-1:
-    #             time +=1
-    #             continue
-            
-    #         p = self.processes[idx]
-    #         p.rt-= 1
-    #         time +=1
-
-    #         if p.rt ==0:
-    #             p.ct = time
-    #             p.tat = p.ct - p.at
-    #             p.wt = p.tat - p.bt
-    #             completed +=1
-    
-
-
     def display(self):
         print("\nPID\tAT\tBT\tPR\tCT\tTAT\tWT")
         print("-" * 52)
@@ -101,17 +70,14 @@ class PriorityPreemptive:
         print(f"Average WT: {avg_wt:.2f}")
 
 
-# 🔹 Example usage
-if __name__ == "__main__":
-    n = int(input("Enter number of processes: "))
-    processes = []
 
-    for i in range(1, n + 1):
-        at = int(input(f"Enter AT of P{i}: "))
-        bt = int(input(f"Enter BT of P{i}: "))
-        pr = int(input(f"Enter Priority of P{i} (lower = higher): "))
-        processes.append(Process(f"P{i}", at, bt, pr))
-
-    scheduler = PriorityPreemptive(processes)
-    scheduler.schedule()
-    scheduler.display()
+n = int(input("Enter number of processes: "))
+processes = []
+for i in range(1, n + 1):
+    at = int(input(f"Enter AT of P{i}: "))
+    bt = int(input(f"Enter BT of P{i}: "))
+    pr = int(input(f"Enter Priority of P{i} (lower = higher): "))
+    processes.append(Process(f"P{i}", at, bt, pr))
+scheduler = PriorityPreemptive(processes)
+scheduler.schedule()
+scheduler.display()
