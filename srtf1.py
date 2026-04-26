@@ -9,7 +9,7 @@ class Process:
         self.tat = 0
         self.wt =0
 
-class SJF:
+class SRTF:
     def __init__(self,processes):
         self.processes = processes
     
@@ -40,7 +40,7 @@ class SJF:
                 p.ct = time
                 p.tat = p.ct- p.at
                 p.wt = p.tat - p.bt
-                completed+= 1
+                completed+=1
 
     def display(self):
         print(f'\nPID\tAT\tBT\tCT\tTAT\tWT')
@@ -57,4 +57,19 @@ class SJF:
         print(f"Average TAT: {avg_tat:.2f}")
         print(f"Average WT: {avg_wt:.2f}")
     
-  
+try:
+    n = input('Enter no of processes: ')
+    processes =[]
+    for i in range(1, int(n)+ 1):
+        at = input(f"Enter the arrival time of P{i}: ")
+        bt = input(f"Enter the burst time of P{i}: ")
+        processes.append(Process(f'P{i}', int(at), int(bt), i))
+    
+    a = SRTF(processes)
+    a.schedule()
+    a.display()
+
+except ValueError:
+    print("Please enter valid integers for no of processes, arrival time and burst time")
+
+

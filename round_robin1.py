@@ -5,7 +5,7 @@ class Process:
         self.pid = pid
         self.at = at
         self.bt = bt
-        self.rt = bt   # Remaining Time
+        self.rt = bt 
         self.ct = 0
         self.tat = 0
         self.wt = 0
@@ -21,50 +21,39 @@ class RoundRobin:
         time = 0
         completed = 0
 
-        # Sort by arrival time
         self.processes.sort(key=lambda x: x.at)
 
         ready_queue = deque()
-        i = 0  # pointer for processes
+        i = 0  
 
         while completed < n:
 
-            # Add all processes that have arrived
             while i < n and self.processes[i].at <= time:
                 ready_queue.append(self.processes[i])
                 i += 1
 
-            # If no process is ready → CPU idle
             if not ready_queue:
                 time = self.processes[i].at
                 continue
 
-            # Get next process
             p = ready_queue.popleft()
 
-            # Execute for time quantum or remaining time
             exec_time = min(self.tq, p.rt)
             p.rt -= exec_time
             time += exec_time
 
-            # Add newly arrived processes during execution
             while i < n and self.processes[i].at <= time:
                 ready_queue.append(self.processes[i])
                 i += 1
 
-            # If process not finished → requeue
             if p.rt > 0:
                 ready_queue.append(p)
             else:
-                # Process completed
                 p.ct = time
                 p.tat = p.ct - p.at
                 p.wt = p.tat - p.bt
                 completed += 1
 
-
-
-            
 
     def display(self):
         print("\nPID\tAT\tBT\tCT\tTAT\tWT")

@@ -38,6 +38,24 @@ class SJF:
             time = p.ct
             visited[idx] = True
             completed+=1
+    
+    def display(self):
+
+        print("\nPID\tAT\tBT\tCT\tTAT\tWT")
+        print("-" * 52)
+        avg_tat = 0
+        avg_wt = 0
+        for p in self.processes:
+            print(f"{p.pid}\t{p.at}\t{p.bt}\t{p.ct}\t{p.tat}\t{p.wt}")
+            avg_tat += p.tat
+            avg_wt += p.wt
+        avg_tat /= len(self.processes)
+        avg_wt /= len(self.processes)
+        print("-" * 52)
+        print(f"\nAverage TAT: {avg_tat:.2f}")
+        print(f"Average WT: {avg_wt:.2f}")
+   
+
 
 try:
     n = input('Enter no of processes: ')

@@ -25,8 +25,6 @@ class FCFS:
             p.wt = p.tat - p.bt
             time = p.ct
 
-
-
     def display(self):
                 
         print(f'\nPID\tAT\tBT\tCT\tTAT\tWT')

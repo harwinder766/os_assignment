@@ -13,43 +13,36 @@ class Process:
 class PriorityPreemptive:
     def __init__(self, processes):
         self.processes = processes
-
+    
     def schedule(self):
         n = len(self.processes)
-        time = 0
         completed = 0
+        time = 0
 
-        while completed < n:
+        while completed <n:
             idx = -1
             best_pr = float('inf')
 
-            # Select highest priority among arrived & not finished
-            for i in range(n):
-                p = self.processes[i]
-                if p.at <= time and p.rt > 0:
-                    if (p.pr < best_pr) or (
-                        p.pr == best_pr and p.at < self.processes[idx].at
-                    ):
-                        best_pr = p.pr
+            for i,p in enumerate(self.processes):
+                if (p.at <= time and p.rt>0):
+                    if (p.pr  < best_pr ) or (p.pr == best_pr and p.at < self.processes[idx].at):
                         idx = i
-
-            # CPU idle if nothing has arrived
-            if idx == -1:
-                time += 1
+                        best_pr = p.pr
+                
+            if idx ==-1:
+                time+=1
                 continue
 
-            # Execute for 1 unit
-            p = self.processes[idx]
-            p.rt -= 1
-            time += 1
+            p= self.processes[idx]
+            p.rt-=1
+            time +=1
 
-            # If finished
-            if p.rt == 0:
-                completed += 1
+            if p.rt==0:
                 p.ct = time
-                p.tat = p.ct - p.at
-                p.wt = p.tat - p.bt
-
+                p.tat = p.ct-p.at
+                p.wt =p.tat -p.bt
+                completed+=1
+                                
     def display(self):
         print("\nPID\tAT\tBT\tPR\tCT\tTAT\tWT")
         print("-" * 52)
